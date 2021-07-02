@@ -2,7 +2,7 @@ function [C]=StiffnessEBSD(ebsd)
 % a code to calculate stifness matrix for each grain
 % you will need MTEX
 % there os an example included .. feel free to run it and to compare the
-% results to 'What is the Youngís Modulus of Silicon?', equation 8
+% results to 'What is the Young‚Äôs Modulus of Silicon?', equation 8
 % https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5430873
 % ref. http://web.mit.edu/16.20/homepage/3_Constitutive/Constitutive_files/module_3_with_solutions.pdf
 close all; warning off
@@ -43,7 +43,7 @@ C{iGrain}.T =(C{iGrain}.Voigt+C{iGrain}.Reuss+C{iGrain}.Hill)/3;
 % CLim(gcm,'equal'); % set equal color range to all plots
 % mtexColorbar 
 
-R = grains(iGrain).meanOrientation.matrix;
+C{iGrain}.R = grains(iGrain).meanOrientation.matrix;
 C{iGrain}.xEBSD = xEBSDV3(R,stiffvalues);%in GPa
 C{iGrain}.Korsunsky = Korsunsky_StiffnessRot(R,stiffvalues);%in GPa
 C{iGrain}.Dunne = Dunne_StiffnessRot(R,stiffvalues);%in GPa
@@ -120,8 +120,8 @@ TsA = [   R11^2,   R21^2,   R31^2,         2*R11*R21,         2*R21*R31,        
           R12^2,   R22^2,   R32^2,         2*R12*R22,         2*R22*R32,         2*R32*R12 
           R13^2,   R23^2,   R33^2,         2*R13*R23,         2*R23*R33,         2*R33*R13 
           R11*R12, R21*R22, R31*R32, R11*R22 + R12*R21, R21*R32 + R22*R31, R31*R12 + R32*R11 
-          R12*R13, R22*R23, R33*R33, R23*R12 + R13*R22, R22*R33 + R23*R32, R32*R13 + R33*R12 
-          R13*R11, R23*R21, R33*R31, R13*R31 + R11*R23, R23*R31 + R21*R33, R33*R11 + R31*R13];
+          R12*R13, R22*R23, R32*R33, R23*R12 + R13*R22, R22*R33 + R23*R32, R32*R13 + R33*R12 
+          R13*R11, R23*R21, R33*R31, R13*R21 + R11*R23, R23*R31 + R21*R33, R33*R11 + R31*R13];
         
 TeA = [R11^2,     R21^2,     R31^2,           R11*R31,           R21*R31,           R31*R11
        R12^2,     R22^2,     R32^2,           R12*R32,           R22*R32,           R32*R12
@@ -354,7 +354,7 @@ phasestiffness(24).stiff=[134,110,110,0,0,0;
     0,0,0,0,55,0;
     0,0,0,0,0,55];
 
-phasestiffness(25).name='Baddeleyite'; %WILLI PABST, GABRIELA TICH¡, EVA GREGOROV¡, 2004
+phasestiffness(25).name='Baddeleyite'; %WILLI PABST, GABRIELA TICH√Å, EVA GREGOROV√Å, 2004
 phasestiffness(25).stiff=[327,100,62,0,0,0;
     100,327,62,0,0,0;
     62,62,264,0,0,0;
