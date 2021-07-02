@@ -2,7 +2,7 @@ function [C]=StiffnessEBSD(ebsd)
 % a code to calculate stifness matrix for each grain
 % you will need MTEX
 % there os an example included .. feel free to run it and to compare the
-% results to 'What is the Youngís Modulus of Silicon?', equation 8
+% results to 'What is the Young‚Äôs Modulus of Silicon?', equation 8
 % https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5430873
 % ref. http://web.mit.edu/16.20/homepage/3_Constitutive/Constitutive_files/module_3_with_solutions.pdf
 close all; warning off
@@ -25,6 +25,9 @@ csGlaucophane = crystalSymmetry(CS.pointGroup,'mineral',CS.mineral);
 stiffvalues   = lStiffness(CS.mineral);%in GPa
 % define the tensor
 CGlaucophane = stiffnessTensor(stiffvalues,csGlaucophane);
+C{iGrain}.E  = CGlaucophane.YoungsModulus(vector3d.X);
+C{iGrain}.nu = CGlaucophane.PoissonRatio(vector3d.X,vector3d.Z); % in plane
+C{iGrain}.G  = CGlaucophane.shearModulus(vector3d.X,vector3d.Y); %in-plane shear
 % %MTEX includes an automatic halfwidth selection algorithm for pecris
 % deLaValeePoussinKernel cacluations 
     PsI    = calcKernel(ebsd(grains(iGrain)).orientations); % using all points
@@ -354,7 +357,7 @@ phasestiffness(24).stiff=[134,110,110,0,0,0;
     0,0,0,0,55,0;
     0,0,0,0,0,55];
 
-phasestiffness(25).name='Baddeleyite'; %WILLI PABST, GABRIELA TICH¡, EVA GREGOROV¡, 2004
+phasestiffness(25).name='Baddeleyite'; %WILLI PABST, GABRIELA TICH√Å, EVA GREGOROV√Å, 2004
 phasestiffness(25).stiff=[327,100,62,0,0,0;
     100,327,62,0,0,0;
     62,62,264,0,0,0;
