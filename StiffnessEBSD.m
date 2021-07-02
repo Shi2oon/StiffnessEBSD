@@ -36,6 +36,11 @@ C{iGrain}.G  = CGlaucophane.shearModulus(vector3d.X,vector3d.Y); %in-plane shear
     title(['Grain ' num2str(iGrain)]);
 %The Voigt, Reuss, and Hill averages for all phases are computed by
 odfEpidote = calcODF(ebsd(grains(iGrain)).orientations,hw);
+
+% detail of these methods can be found here
+% Voight:
+% Reuss: https://doi.org/10.1002/zamm.19290090104
+% Hill (average voight and Reuss): https://doi.org/10.1088/0370-1298/65/5/307
 [C{iGrain}.Voigt,C{iGrain}.Reuss,C{iGrain}.Hill]=...
     calcTensor(odfEpidote,CGlaucophane);
 C{iGrain}.T =(C{iGrain}.Voigt+C{iGrain}.Reuss+C{iGrain}.Hill)/3;
