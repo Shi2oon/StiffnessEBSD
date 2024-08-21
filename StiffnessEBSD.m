@@ -35,7 +35,7 @@ for iGrain=1:length(grains)
     odfEpidote = calcODF(ebsd(grains(iGrain)).orientations,hw);
 
     % detail of these methods can be found here
-    % Voight:
+    % Voight: https://archive.org/details/bub_gb_SvPPAAAAMAAJ
     % Reuss: https://doi.org/10.1002/zamm.19290090104
     % Hill (average voight and Reuss): https://doi.org/10.1088/0370-1298/65/5/307
     [C{iGrain}.Voigt,C{iGrain}.Reuss,C{iGrain}.Hill]=...
@@ -55,12 +55,14 @@ for iGrain=1:length(grains)
     C{iGrain}.nu_xEBSD = CGlaucophane.PoissonRatio(vector3d.X,vector3d.Z); % in plane
     C{iGrain}.G_xEBSD  = CGlaucophane.shearModulus(vector3d.X,vector3d.Y); %in-plane shear
 
+% from https://doi.org/10.1137/1009023 or https://doi.org/10.1016/j.ijsolstr.2016.02.031
     C{iGrain}.Salvati = Salvati_StiffnessRot(C{iGrain}.R,stiffvalues);%in GPa
     CGlaucophane = stiffnessTensor(C{iGrain}.Korsunsky ,csGlaucophane);
     C{iGrain}.E_Salvati  = CGlaucophane.YoungsModulus(vector3d.X);
     C{iGrain}.nu_Salvati = CGlaucophane.PoissonRatio(vector3d.X,vector3d.Z); % in plane
     C{iGrain}.G_Salvati  = CGlaucophane.shearModulus(vector3d.X,vector3d.Y); %in-plane shear
 
+% from https://doi.org/10.1016/j.ijplas.2006.10.013
     C{iGrain}.Dunne = Dunne_StiffnessRot(C{iGrain}.R,stiffvalues);%in GPa
     CGlaucophane = stiffnessTensor(C{iGrain}.Dunne,csGlaucophane);
     C{iGrain}.E_Dunne  = CGlaucophane.YoungsModulus(vector3d.X);
