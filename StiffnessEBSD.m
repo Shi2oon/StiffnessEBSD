@@ -1,6 +1,7 @@
 function [C]=StiffnessEBSD(ebsd)
-% a code to calculate stifness matrix for each grain
-% you will need MTEX
+% a code to calculate the stiffness matrix for each grain
+% you will need MTEX and the ebsd variable that comes from EBSD data
+% also check the phase name is included on the phases list after line 201
 % there os an example included .. feel free to run it and to compare the
 % results to 'What is the Young’s Modulus of Silicon?', equation 8
 % https://ieeexplore.ieee.org/stamp/stamp.jsp?arnumber=5430873
